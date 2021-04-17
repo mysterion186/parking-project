@@ -100,7 +100,5 @@ p1.add()
 p2 = Parking(fenetre,"place 2 ",55,90)
 p2.add()
 
-#################################### Initialisation des places de parking #################################### 
-
-
+#################################### Fin initialisation des places de parking #################################### 
 fenetre.mainloop()
