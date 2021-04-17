@@ -3,18 +3,24 @@ from tkinter import *
 ##############################################################################################################################
 # Infos en vrac                                                                                                              #
 ##############################################################################################################################
+""" 
+RAPPEL backgrounds ne fonctionne pas sur macos d'où l'utilisation de highlightbackground => pb si on quitte la fenêtre tkinter
+on aura que les bordures qui auront une couleur sinon tous sera colorié normalement 
+"""
 # - il faut 20 pixel d'écart selon y pour avoir de "jolie bouton"
+# - il faut 55 pixel d'écart selon x pour avoir de "jolie bouton"
 
 ##############################################################################################################################
 # Déclaration des variables                                                                                                  #
 ##############################################################################################################################
 place_occupe = 0   #nombre de place prise dans le parking
-place_libre = 2    #nombre de place libre dans le parking
-place_max = 2      #nopmbre de place dans le parking
+place_libre = 3    #nombre de place libre dans le parking
+place_max = 3      #nopmbre de place dans le parking
 
 ##############################################################################################################################
 # Déclaration de classe                                                                                                      #
 ##############################################################################################################################
+
 class Parking :
     def __init__(self,frame,name,x,y):
         self.name = name
@@ -29,16 +35,6 @@ class Parking :
     #ajoute le bouton crée dans le fenêtre tkinter 
     def add(self):
         self.button.place(x = self.x,y = self.y)
-
-    """#met à jour la valeur du bouton ("L si libre et P si prise ")
-    def update_button_value(self):
-        if self.name[0] == "L":
-            temp = "P"+self.name[1:]
-            self.name = temp
-        else :
-            temp = "L"+self.name[1:]
-            self.name = temp
-        self.name_var.set(self.name)"""
     
     #modifie la couleur de la place selon qu'elle est prise(red) ou non(green)
     def change_color(self):
@@ -99,6 +95,8 @@ p1 = Parking(fenetre,"place 1 ",0,90)
 p1.add()
 p2 = Parking(fenetre,"place 2 ",55,90)
 p2.add()
+p3 = Parking(fenetre,"place 3 ",110,90)
+p3.add()
 
 #################################### Fin initialisation des places de parking #################################### 
 fenetre.mainloop()
