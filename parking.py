@@ -5,7 +5,7 @@ from tkinter import *
 ##############################################################################################################################
 """ 
 RAPPEL: background ne fonctionne pas sur macos d'où l'utilisation de highlightbackground => pb si on quitte la fenêtre tkinter
-on aura que les bordures qui auront une couleur sinon tous sera colorié normalement (au lancement de la fenêtre tkinter)
+on aura que les bordures qui auront une couleur sinon toutes les places seront coloriées normalement 
 """
 # - il faut 20 pixel d'écart selon y pour avoir de "jolie bouton"
 # - il faut 55 pixel d'écart selon x pour avoir de "jolie bouton"
@@ -25,23 +25,22 @@ class Parking :
     def __init__(self,frame,name,x,y):
         global place_libre,place_max
         self.name = name #nom de la place 
-        self.name_var = StringVar() #permet de changer le texte qui se trouve sur le bouton de manière dynamique
-        self.name_var.set(self.name)
         self.x = x #coordonnée x du bouton
         self.y = y #coordonnée y du bouton
         self.frame = frame #nom de le fenêtre tkinter
         #creation d'un bouton, on utilise highlightbackground à lla place de background car ça ne marche pas sur macos 
-        self.button = Button(self.frame,textvariable = str(self.name_var),command = self.update_place,highlightbackground='green',background = 'green')
+        self.button = Button(self.frame,text = str(self.name),command = self.update_place,highlightbackground='green',background = 'green')
         #on met à jour le nombre de place libre et maximal à la création de chaque place de parking
         place_libre +=1 
         place_max +=1
 
-    #ajoute le bouton crée dans le fenêtre tkinter 
+    #ajoute le bouton crée dans la fenêtre tkinter 
     def add(self):
         self.button.place(x = self.x,y = self.y)
     
     #modifie la couleur de la place selon qu'elle est prise(red) ou non(green)
     def change_color(self):
+        #on teste highlightbackground et non background à cause des pb sur macos et pour être sûr qu'il y ait un changement de couleur
         if self.button["highlightbackground"]=='red':
             self.button["highlightbackground"]= 'green'
             self.button["background"]= 'green'
@@ -78,12 +77,12 @@ class Parking :
 ##############################################################################################################################
 
 
-#################################### initialisation de la fenêtre  ####################################
+#################################### initialisation de la fenêtre  ############################################################
 fenetre = Tk()
 fenetre.title("Parking Manager")
 fenetre.geometry("500x500")
 
-#################################### Initialisation des places de parking #################################### 
+#################################### Initialisation des places de parking ######################################################
 #premier étage
 etage_1 = Label(fenetre,text = "Etage n°1") .place(x=200,y = 50)
 alle_1_1 = Label(fenetre,text = "Allé 1").place(x = 0,y=70)
@@ -94,10 +93,10 @@ p2.add()
 p3 = Parking(fenetre,"place 3 ",110,90)
 p3.add()
 for k in range(0,5):
-    spot = Parking(fenetre,f"place {str(k)}",(165+k*55),90)
+    spot = Parking(fenetre,f"place {str(4+k)}",(165+k*55),90)
     spot.add() 
 
-#################################### Initialisation des compteur de place ####################################
+#################################### Initialisation des compteur de place ######################################################
 place_libre_var = StringVar()
 place_occupe_var = StringVar()
 
