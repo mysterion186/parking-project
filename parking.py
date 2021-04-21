@@ -107,26 +107,19 @@ fenetre.title("Parking Manager")
 fenetre.geometry("500x500")
 
 #################################### Initialisation des places de parking ######################################################
-#premier niveau
-etage_1 = Label(fenetre,text = "Niveau n°0") .place(x=200,y = 50)
-#allée n°1
-add_places(frame=fenetre,x_base=0, y_base=70,allee_num = 1,num_max=5)
-#allée n°2
-add_places(frame=fenetre,x_base=0, y_base=120,allee_num = 2,num_max=4)
-
-#deuxième niveau  
-etage_2 = Label(fenetre,text = "Niveau n°1") .place(x=200,y = 180)
-#allée n°1
-add_places(frame=fenetre,x_base=0, y_base=190,allee_num = 1,num_max=5)
-#allée n°2
-add_places(frame=fenetre,x_base=0, y_base=240,allee_num = 2,num_max=4)
-
-#troisième niveau  
-etage_3 = Label(fenetre,text = "Niveau n°2") .place(x=200,y = 310)
-#allée n°1
-add_places(frame=fenetre,x_base=0, y_base=320,allee_num = 1,num_max=5)
-#allée n°2
-add_places(frame=fenetre,x_base=0, y_base=370,allee_num = 2,num_max=4)
+#coordonées y de départ, qu'on va ensuite modifier dans la boucle pour avoir les différents éléments à la bonne place
+y = 50 
+#on utilise une boucle pour ne pas répeter 3 fois les mêmes lignes de codes
+for k in range(0,3):
+    #nom du niveau k
+    etage_k = Label(fenetre,text = f"Niveau n°{str(k)}") .place(x=200,y = y)
+    y+=10
+    #allée 1 du niveau k 
+    allee_k_1 = add_places(frame=fenetre,x_base=0, y_base=y,allee_num = 1,num_max=5)
+    y+=50
+    #allée 2 du niveau k 
+    allee_k_2 = add_places(frame=fenetre,x_base=0, y_base=y,allee_num = 2,num_max=4)
+    y+=60
 
 #################################### Initialisation des compteur de place ######################################################
 place_libre_var = StringVar()
