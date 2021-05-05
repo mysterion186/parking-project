@@ -22,6 +22,8 @@ place_max = 0      #nombre de place maximal dans le parking
 place_0 = 0        #nombre de place libre par niveau
 place_1 = 0
 place_2 = 0
+
+
 ##############################################################################################################################
 # Déclaration de classe                                                                                                      #
 ##############################################################################################################################
@@ -40,9 +42,9 @@ class Parking :
         self.button = Button(self.frame,text = str(self.name),command = self.update_place,highlightbackground='green',background = 'green')
 
         #on met à jour le nombre de place libre et maximal à la création de chaque place de parking
-        place_libre +=1 
-        place_max +=1
-        update_place_value(self.name[0])
+        # place_libre +=1 
+        # place_max +=1
+        update_place_value(self.name[0],"init")
 
     #ajoute le bouton crée dans la fenêtre tkinter 
     def add(self):
@@ -64,19 +66,19 @@ class Parking :
 
         #place de parking libre, on essaye de se garer
         if self.button["highlightbackground"]=="green" : #on regarde la couleur car elle nous indique l'état de la place (prise ou non)
-            place_occupe+=1
-            place_libre -=1
+            # place_occupe+=1
+            # place_libre -=1
             print("Nombre de place Libre = {}, nombre de place occupée occupé = {}".format(place_libre,place_occupe))
             self.change_color()
-            update_place_value(self.name[0],False)
+            update_place_value(self.name[0],"partir")
             print("place 0 {} place 1 {} place 2 {}".format(place_0,place_1,place_2))
         #place de parking prise, on essaye de sortir 
         elif self.button["highlightbackground"]=="red": 
-            place_libre +=1
-            place_occupe -=1
+            # place_libre +=1
+            # place_occupe -=1
             print("Nombre de place Libre = {}, nombre de place occupée occupé = {}".format(place_libre,place_occupe))
             self.change_color()
-            update_place_value(self.name[0],True)
+            update_place_value(self.name[0],"garer")
             print("place 0 {} place 1 {} place 2 {}".format(place_0,place_1,place_2))
         else : 
             print("Action illégal")
@@ -108,10 +110,10 @@ def add_places(frame,x_base,y_base,allee_num,num_max,niveau_num,count):
 
 #met à jour le nombre de place dans le niveau considéré [place disponible]
 #niveau_num = numéro du niveau, action = bouléen, True si on quitte la place False sinon
-def update_place_value(niveau_num,action=True):
-    global place_0,place_1,place_2
+def update_place_value(niveau_num,action="garer"):
+    global place_0,place_1,place_2, place_libre, place_occupe,place_max
     #on met à jour le nombre de place dans le niveau
-    if action :
+    if action == "garer":
         place_libre +=1
         place_occupe -=1
         if niveau_num == "0":
@@ -120,7 +122,7 @@ def update_place_value(niveau_num,action=True):
             place_1 +=1
         elif niveau_num == "2":
             place_2 +=1
-    else :
+    elif action == 'partir' :
         place_occupe+=1
         place_libre -=1
         if niveau_num == "0":
@@ -129,6 +131,15 @@ def update_place_value(niveau_num,action=True):
             place_1 -=1
         elif niveau_num == "2":
             place_2 -=1
+    else :
+        place_libre +=1 
+        place_max +=1 
+        if niveau_num == "0":
+            place_0 +=1
+        elif niveau_num =="1" :
+            place_1 +=1
+        elif niveau_num == "2":
+            place_2 +=1
     return True
 ##############################################################################################################################
 # Partie graphique                                                                                                           #
